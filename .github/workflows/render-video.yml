@@ -1,6 +1,16 @@
-name: Render Video
+name: Make.com Automated Render
 on:
-  workflow_dispatch: # This allows you to start the render manually
+  workflow_dispatch:
+    inputs:
+      script:
+        description: 'The story text'
+        required: true
+      video_url:
+        description: 'Dropbox Video Link'
+        required: true
+      audio_url:
+        description: 'Voiceover Link'
+        required: true
 
 jobs:
   render:
@@ -18,10 +28,11 @@ jobs:
         run: npm install
 
       - name: Render Video
-        run: npx remotion render src/index.ts out/video.mp4
+        run: |
+          npx remotion render src/index.ts out/video.mp4 --props='{"script": "${{ github.event.inputs.script }}", "videoUrl": "${{ github.event.inputs.video_url }}", "audioUrl": "${{ github.event.inputs.audio_url }}"}'
 
       - name: Upload Video
         uses: actions/upload-artifact@v4
         with:
-          name: rendered-video
+          name: final-video
           path: out/video.mp4
