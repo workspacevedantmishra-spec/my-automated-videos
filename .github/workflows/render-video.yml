@@ -3,13 +3,13 @@ on:
   workflow_dispatch:
     inputs:
       script:
-        description: 'The story text'
+        description: 'script'
         required: true
       video_url:
-        description: 'Dropbox Video Link'
+        description: 'video_url'
         required: true
       audio_url:
-        description: 'Voiceover Link'
+        description: 'audio_url'
         required: true
 
 jobs:
