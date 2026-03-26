@@ -1,46 +1,30 @@
-import { Composition } from "remotion";
-import { HelloWorld, myCompSchema } from "./HelloWorld";
-import { Logo, myCompSchema2 } from "./HelloWorld/Logo";
+import { Audio, Video, AbsoluteFill, getInputProps } from 'remotion';
 
-// Each <Composition> is an entry in the sidebar!
+export const MyVideo = () => {
+  // These are the inputs sent from Make.com
+  const { script, video_url, audio_url } = getInputProps();
 
-export const RemotionRoot: React.FC = () => {
   return (
-    <>
-      <Composition
-        // You can take the "id" to render a video:
-        // npx remotion render HelloWorld
-        id="HelloWorld"
-        component={HelloWorld}
-        durationInFrames={150}
-        fps={30}
-        width={1920}
-        height={1080}
-        // You can override these props for each render:
-        // https://www.remotion.dev/docs/parametrized-rendering
-        schema={myCompSchema}
-        defaultProps={{
-          titleText: "Welcome to Remotion",
-          titleColor: "#000000",
-          logoColor1: "#91EAE4",
-          logoColor2: "#86A8E7",
-        }}
-      />
+    <AbsoluteFill style={{ backgroundColor: 'black' }}>
+      {/* 1. The Background Video from Dropbox */}
+      <Video src={video_url} />
 
-      {/* Mount any React component to make it show up in the sidebar and work on it individually! */}
-      <Composition
-        id="OnlyLogo"
-        component={Logo}
-        durationInFrames={150}
-        fps={30}
-        width={1920}
-        height={1080}
-        schema={myCompSchema2}
-        defaultProps={{
-          logoColor1: "#91dAE2" as const,
-          logoColor2: "#86A8E7" as const,
-        }}
-      />
-    </>
+      {/* 2. The Voiceover Audio */}
+      <Audio src={audio_url} />
+
+      {/* 3. The Captions (Script) */}
+      <AbsoluteFill style={{
+        justifyContent: 'center',
+        alignItems: 'center',
+        color: 'white',
+        fontSize: '60px',
+        textAlign: 'center',
+        padding: '40px',
+        fontWeight: 'bold',
+        textShadow: '2px 2px 10px black'
+      }}>
+        {script}
+      </AbsoluteFill>
+    </AbsoluteFill>
   );
 };
