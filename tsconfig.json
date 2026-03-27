@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2018",
-    "module": "esnext",  // ← Change from "commonjs" to "esnext"
+    "module": "esnext",
     "jsx": "react-jsx",
     "strict": true,
     "noEmit": true,
