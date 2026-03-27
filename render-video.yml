@@ -1,0 +1,38 @@
+name: Make.com Automated Render
+on:
+  workflow_dispatch:
+    inputs:
+      script:
+        description: 'script'
+        required: true
+      video_url:
+        description: 'video_url'
+        required: true
+      audio_url:
+        description: 'audio_url'
+        required: true
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Render Video
+        run: |
+          npx remotion render src/index.ts out/video.mp4 --props='{"script": "${{ github.event.inputs.script }}", "video_url": "${{ github.event.inputs.video_url }}", "audio_url": "${{ github.event.inputs.audio_url }}"}'
+
+      - name: Upload Video
+        uses: actions/upload-artifact@v4
+        with:
+          name: final-video
+          path: out/video.mp4
