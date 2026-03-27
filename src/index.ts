@@ -1,5 +1,4 @@
 import { registerRoot } from "remotion";
-import { RemotionRoot } from "./Root";
+import { RemotionRoot } from "./Root"; // This MUST match your filename 'Root.tsx'
 
-// This tells Remotion: "Start the video using the RemotionRoot component"
 registerRoot(RemotionRoot);
