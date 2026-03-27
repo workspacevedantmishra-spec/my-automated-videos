@@ -1,23 +1,23 @@
-import { Audio, Video, AbsoluteFill, getInputProps } from 'remotion';
+import { Composition, Audio, Video, AbsoluteFill, getInputProps } from 'remotion';
 
+// 1. Your Video Component (Exactly as you wrote it)
 export const MyVideo = () => {
-  // These are the inputs sent from Make.com
   const { script, video_url, audio_url } = getInputProps();
 
   return (
     <AbsoluteFill style={{ backgroundColor: 'black' }}>
-      {/* 1. The Background Video from Dropbox */}
+      {/* Background Video */}
       <Video src={video_url} />
-
-      {/* 2. The Voiceover Audio */}
+      
+      {/* Voiceover */}
       <Audio src={audio_url} />
-
-      {/* 3. The Captions (Script) */}
+      
+      {/* Captions */}
       <AbsoluteFill style={{
         justifyContent: 'center',
         alignItems: 'center',
         color: 'white',
-        fontSize: '60px',
+        fontSize: '120px',
         textAlign: 'center',
         padding: '40px',
         fontWeight: 'bold',
@@ -26,5 +26,26 @@ export const MyVideo = () => {
         {script}
       </AbsoluteFill>
     </AbsoluteFill>
+  );
+};
+
+// 2. The Required Remotion Wrapper (This is what index.ts was looking for)
+export const RemotionRoot = () => {
+  return (
+    <>
+      <Composition
+        id="MyVideo"
+        component={MyVideo}
+        durationInFrames={900} /* Default duration, 30 seconds at 30fps */
+        fps={30}
+        width={1080}
+        height={1920} /* TikTok/Shorts vertical format */
+        defaultProps={{
+          script: "Testing",
+          video_url: "",
+          audio_url: ""
+        }}
+      />
+    </>
   );
 };
