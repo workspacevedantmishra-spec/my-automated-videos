@@ -1,4 +1,4 @@
 import { registerRoot } from "remotion";
-import { RemotionRoot } from "./Root"; // This MUST match your filename 'Root.tsx'
+import { RemotionRoot } from "./Root";
 
 registerRoot(RemotionRoot);
