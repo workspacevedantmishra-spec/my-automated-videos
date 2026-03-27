@@ -1,7 +1,7 @@
 import { Composition } from "remotion";
 import { MyVideo } from "./MyVideo"; // Your video component
 
-export const RemotionRoot = () => {
+export const RemotionRoot = (root) => {
   return (
     <Composition
       id="MyVideo"
